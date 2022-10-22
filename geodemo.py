@@ -20,7 +20,7 @@ def get_population_color(df):
         return '#ff00f7'
     
     if asian > white and asian > black and asian > native and asian > latino:
-        return 'c7321e'
+        return '#c7321e'
 
     if latino > white and latino > black and latino > native and latino > asian:
         return '#3b9c3a'
@@ -158,7 +158,6 @@ JOIN tract_geo ON tract.state_id=tract_geo.state_id AND tract.county_id=tract_ge
 WHERE 
 state.abbreviation = "{state}"'''
 
-  print(sql)
   return pd.read_sql_query(sql, db)
 
 def get_tracts(db, state):
