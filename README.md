@@ -64,7 +64,7 @@ fig
 
 main.py builds a sqlite3 database file. Also, a prebuilt database file is available [here](https://drive.google.com/file/d/13Lff2690yTfAK6spUXJSNx1Ad4dKvb92/view).
 
-To use in a jupyter notebook, first install the excellent [jupyter-gmaps](https://jupyter-gmaps.readthedocs.io/en/latest/) plugin. Then use the helper functions in geodemo.py to generate the GeoJSON layers. 
+To use in a jupyter notebook, first install the excellent [jupyter-gmaps](https://jupyter-gmaps.readthedocs.io/en/latest/) plugin. Then use the helper functions in geodemo.py to generate the GeoJSON layers. See example [here](/geodemo.ipynb).
 
 Please report issues to the [issues tracker](https://github.com/gadams05/GeoDemo/issues). Thanks for using geodemo I hope you find it useful.
 
