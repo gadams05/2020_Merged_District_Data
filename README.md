@@ -27,3 +27,5 @@ fig.add_layer(hilight_layer)
 fig
 ```
 
+![district example](/demo/district.jpg)
+
