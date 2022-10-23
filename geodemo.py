@@ -1,6 +1,8 @@
 import pandas as pd
 import geojson
 
+api_key='YOUR_GOOGLE_MAPS_API_KEY_HERE'
+
 demo_colors = { 'white': '#4c4ca6', 'black':'#c77b1e', 'native':'#ff00f7', 'asian':'#c7321e', 'latino':'#3b9c3a', 'other':'#8227b0' }
 vote_colors = { 'dem': 'blue', 'gop': 'red', 'other': 'purple' }
 
