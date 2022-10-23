@@ -29,3 +29,33 @@ fig
 
 ![district example](/demo/district.jpg)
 
+## Loading census tracts and coloring for the largest demographic 
+
+```
+fig = gmaps.figure(layout=figure_layout)
+feature_coll, demo_colors = gd.get_tracts(db, 'IL', demo_colors=gd.demo_colors)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, stroke_weight=2)
+fig.add_layer(gini_layer)
+
+fig
+```
+
+![tract example](/demo/tract.jpg)
+
+## Loading census tracts and coloring for the largest demographic, then layering districts on top, colored by outcome of 2020 presidential election.
+
+```
+fig = gmaps.figure(layout=figure_layout)
+state =   'TX'
+feature_coll, demo_colors = gd.get_tracts(db, state, demo_colors=gd.demo_colors)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, stroke_weight=2)
+fig.add_layer(gini_layer)
+
+feature_coll, vote_colors, demo_colors = gd.get_districts(db, state, demo_colors=gd.demo_colors, vote_colors=gd.vote_colors)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, stroke_color=vote_colors, fill_opacity=0.0, stroke_opacity=1.0, stroke_weight=5)
+fig.add_layer(gini_layer)
+
+fig
+```
+
+![tract example](/demo/district-tract.jpg)
