@@ -4,7 +4,7 @@ This project is a massive dataset that combines Census Tracts, population data, 
 
 Some examples below:
 
-`
+```
 figure_layout = {
     'width': '2000px',
     'height': '2000px',
@@ -23,5 +23,5 @@ hilight_layer = gmaps.geojson_layer(hilight_coll, fill_opacity=0.75, fill_color=
 fig.add_layer(hilight_layer)
 
 fig
-` 
+```
 
