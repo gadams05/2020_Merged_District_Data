@@ -23,7 +23,8 @@ hilight_coll,v,d = gd.get_districts(db, 'NY', 17)
 gini_layer = gmaps.geojson_layer(feature_coll, fill_opacity=0.0, stroke_weight=2)
 fig.add_layer(gini_layer)
 
-hilight_layer = gmaps.geojson_layer(hilight_coll, fill_opacity=0.75, fill_color=['gray'], stroke_weight=2)
+hilight_layer = gmaps.geojson_layer(hilight_coll, fill_opacity=0.75, 
+fill_color=['gray'], stroke_weight=2)
 fig.add_layer(hilight_layer)
 
 fig
@@ -36,7 +37,8 @@ fig
 ```python
 fig = gmaps.figure(layout=figure_layout)
 feature_coll, demo_colors = gd.get_tracts(db, 'IL', demo_colors=gd.demo_colors)
-gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, stroke_weight=2)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, 
+stroke_weight=2)
 fig.add_layer(gini_layer)
 
 fig
@@ -50,11 +52,14 @@ fig
 fig = gmaps.figure(layout=figure_layout)
 state =   'TX'
 feature_coll, demo_colors = gd.get_tracts(db, state, demo_colors=gd.demo_colors)
-gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, stroke_weight=2)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, 
+stroke_weight=2)
 fig.add_layer(gini_layer)
 
-feature_coll, vote_colors, demo_colors = gd.get_districts(db, state, demo_colors=gd.demo_colors, vote_colors=gd.vote_colors)
-gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, stroke_color=vote_colors, fill_opacity=0.0, stroke_opacity=1.0, stroke_weight=5)
+feature_coll, vote_colors, demo_colors = gd.get_districts(db, state, demo_colors=gd.demo_colors, 
+vote_colors=gd.vote_colors)
+gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, stroke_color=vote_colors, 
+fill_opacity=0.0, stroke_opacity=1.0, stroke_weight=5)
 fig.add_layer(gini_layer)
 
 fig
