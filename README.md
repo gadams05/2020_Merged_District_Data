@@ -6,7 +6,7 @@ Some examples below:
 
 ## Loading districts for a state, then highlighting a single district
 
-```
+```python
 figure_layout = {
     'width': '2000px',
     'height': '2000px',
@@ -31,7 +31,7 @@ fig
 
 ## Loading census tracts and coloring for the largest demographic 
 
-```
+```python
 fig = gmaps.figure(layout=figure_layout)
 feature_coll, demo_colors = gd.get_tracts(db, 'IL', demo_colors=gd.demo_colors)
 gini_layer = gmaps.geojson_layer(feature_coll, fill_color=demo_colors, fill_opacity=0.5, stroke_weight=2)
@@ -44,7 +44,7 @@ fig
 
 ## Loading census tracts and coloring for the largest demographic, then layering districts on top, colored by outcome of 2020 presidential election.
 
-```
+```python
 fig = gmaps.figure(layout=figure_layout)
 state =   'TX'
 feature_coll, demo_colors = gd.get_tracts(db, state, demo_colors=gd.demo_colors)
