@@ -12,7 +12,7 @@ import subprocess
 wd = os.getcwd()
 print(f'directory is {wd}')
 
-db = sqlite3.connect('data/db/data.db')
+db = sqlite3.connect('data/db/geodemo.db')
 cur = db.cursor()
 
 ssl._create_default_https_context = ssl._create_unverified_context

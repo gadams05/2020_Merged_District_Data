@@ -59,3 +59,8 @@ fig
 ```
 
 ![tract example](/demo/district-tract.jpg)
+
+# Requirements
+
+main.py builds a sqlite3 database file. Also, a prebuilt database file is available [here](https://drive.google.com/file/d/13Lff2690yTfAK6spUXJSNx1Ad4dKvb92/view).
+
