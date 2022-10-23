@@ -4,6 +4,8 @@ This project is a massive dataset that combines Census Tracts, population data, 
 
 Some examples below:
 
+## Loading districts for a state, then highlighting a single district
+
 ```
 figure_layout = {
     'width': '2000px',
