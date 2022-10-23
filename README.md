@@ -4,7 +4,7 @@ This project is a massive dataset that combines Census Tracts, population data, 
 
 ## Some examples below:
 
-## Loading districts for a state, then highlighting a single district
+### Loading districts for a state, then highlighting a single district
 
 ```python
 figure_layout = {
@@ -29,7 +29,7 @@ fig
 
 ![district example](/demo/district.jpg)
 
-## Loading census tracts and coloring for the largest demographic 
+### Loading census tracts and coloring for the largest demographic 
 
 ```python
 fig = gmaps.figure(layout=figure_layout)
@@ -42,7 +42,7 @@ fig
 
 ![tract example](/demo/tract.jpg)
 
-## Loading census tracts and coloring for the largest demographic, then layering districts on top, colored by outcome of 2020 presidential election.
+### Loading census tracts and coloring for the largest demographic, then layering districts on top, colored by outcome of 2020 presidential election.
 
 ```python
 fig = gmaps.figure(layout=figure_layout)
@@ -60,7 +60,7 @@ fig
 
 ![tract example](/demo/district-tract.jpg)
 
-# Requirements
+## Requirements
 
 main.py builds a sqlite3 database file. Also, a prebuilt database file is available [here](https://drive.google.com/file/d/13Lff2690yTfAK6spUXJSNx1Ad4dKvb92/view).
 
