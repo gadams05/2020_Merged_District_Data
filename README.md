@@ -6,6 +6,8 @@ This project is a massive dataset that combines Census Tracts, population data, 
 
 ### Loading districts for a state, then highlighting a single district
 
+![district example](/demo/district.jpg)
+
 ```python
 figure_layout = {
     'width': '2000px',
@@ -27,9 +29,9 @@ fig.add_layer(hilight_layer)
 fig
 ```
 
-![district example](/demo/district.jpg)
-
 ### Loading census tracts and coloring for the largest demographic 
+
+![tract example](/demo/tract.jpg)
 
 ```python
 fig = gmaps.figure(layout=figure_layout)
@@ -40,9 +42,9 @@ fig.add_layer(gini_layer)
 fig
 ```
 
-![tract example](/demo/tract.jpg)
-
 ### Loading census tracts and coloring for the largest demographic, then layering districts on top, colored by outcome of 2020 presidential election.
+
+![tract example](/demo/district-tract.jpg)
 
 ```python
 fig = gmaps.figure(layout=figure_layout)
@@ -57,8 +59,6 @@ fig.add_layer(gini_layer)
 
 fig
 ```
-
-![tract example](/demo/district-tract.jpg)
 
 ## Requirements
 
