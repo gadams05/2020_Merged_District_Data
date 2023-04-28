@@ -1,7 +1,12 @@
 import pandas as pd
 import geojson
 
-def get_population_color(df):
+api_key='YOUR_GOOGLE_MAPS_API_KEY_HERE'
+
+demo_colors = { 'white': '#4c4ca6', 'black':'#c77b1e', 'native':'#ff00f7', 'asian':'#c7321e', 'latino':'#3b9c3a', 'other':'#8227b0' }
+vote_colors = { 'dem': 'blue', 'gop': 'red', 'other': 'purple' }
+
+def get_population_color(df, colors):
 
     white = df['white']
     black = df['black']
@@ -10,32 +15,32 @@ def get_population_color(df):
     latino = df['latino']
 
     if white > black and white > native and white > asian and white > latino:
-        return '#4c4ca6'
+        return colors['white']
 
     if black > white and black > native and black > asian and black > latino:
-        return '#c77b1e'
+      return colors['black']
     
 
     if native > white and native > black and native > asian and native > latino:
-        return '#ff00f7'
+      return colors['native']
     
     if asian > white and asian > black and asian > native and asian > latino:
-        return '#c7321e'
+      return colors['asian']
 
     if latino > white and latino > black and latino > native and latino > asian:
-        return '#3b9c3a'
-    
-    return '#8227b0'
+      return colors['latino']
 
-def get_vote_color(df):
+    return colors['other'] 
+
+def get_vote_color(df, colors):
   
     if df['gop'] > 0.55:
-        return 'red'
+        return colors['gop']
 
     if df['dem'] > 0.55:
-        return 'blue'
+        return colors['dem']
 
-    return 'purple'
+    return colors['other']
 
 
 def make_feature_collection(txt):
@@ -43,7 +48,7 @@ def make_feature_collection(txt):
   feature = geojson.Feature(geometry=polygon)
   return geojson.FeatureCollection([feature])
 
-def get_district_sql(db, state):
+def get_district_sql(db, state, id):
 
   sql = f'''SELECT
 state.abbreviation as abbreviation,
@@ -66,73 +71,35 @@ JOIN district_voting_2020 ON district.district_id = district_voting_2020.distric
 JOIN district_geo ON district.district_id = district_geo.district_id AND district.state_id = district_geo.state_id
 WHERE
 state.abbreviation = "{state}"'''
+    
+  if id:
+    sql = sql + f'\nAND district.district_id = {id}'
+
 
   return pd.read_sql_query(sql, db)
 
-def get_districts(db, state):
+def get_districts(db, state, id=None, demo_colors=None, vote_colors=None):
 
   features = []
-  vote_colors = []
-  pop_colors = []
+  vcolors = []
+  dcolors = []
 
-  for index, district in get_district_sql(db, state).iterrows():
-      vote_color = get_vote_color(district)
-      pop_color = get_population_color(district)
+  for index, district in get_district_sql(db, state, id).iterrows():
+      if vote_colors:
+        vcolor = get_vote_color(district, vote_colors)
+      if demo_colors:
+        dcolor = get_population_color(district, demo_colors)
 
       props = { 'name': district['name'], 'state': district['abbreviation'], 'population': district['population']}
       feature = geojson.Feature(properties=props, geometry=geojson.loads(district['coordinates']))
       features.append(feature)
-      vote_colors.append(vote_color)
-      pop_colors.append(pop_color)
 
-  return geojson.FeatureCollection(features), vote_colors, pop_colors
+      if vote_colors:
+        vcolors.append(vcolor)
+      if demo_colors:
+        dcolors.append(dcolor)
 
-def get_plain_district_sql(db, state, id=None):
-
-    sql = f'''SELECT
-state.abbreviation as abbreviation,
-state.state_id as state_id,
-district.district_id as district_id,
-district.name as name,
-district.total as population,
-district_geo.coordinates as coordinates
-FROM
-state
-JOIN district ON state.state_id = district.state_id
-JOIN district_geo ON district.district_id = district_geo.district_id AND district.state_id = district_geo.state_id
-WHERE
-state.abbreviation = "{state}"'''
-    
-    if id:
-        sql = sql + f'\nAND district.district_id = {id}'
-
-    return pd.read_sql_query(sql, db)
-
-def get_plain_districts(db, state):
-
-    features = []
-    vote_colors = []
-    pop_colors = []
-
-    for index, district in get_plain_district_sql(db, state).iterrows():
-
-        props = { 'name': district['name'], 'state': district['abbreviation'], 'population': district['population']}
-        feature = geojson.Feature(properties=props, geometry=geojson.loads(district['coordinates']))
-        features.append(feature)
-
-    return geojson.FeatureCollection(features)
-
-def get_district(db, state, id):
-
-    features = []
-
-    for index, district in get_plain_district_sql(db, state, id=id).iterrows():
-
-        props = { 'name': district['name'], 'state': district['abbreviation'], 'population': district['population']}
-        feature = geojson.Feature(properties=props, geometry=geojson.loads(district['coordinates']))
-        features.append(feature)
-
-    return geojson.FeatureCollection(features)
+  return geojson.FeatureCollection(features), vcolors, dcolors
 
 def get_tract_sql(db, state):
 
@@ -160,19 +127,20 @@ state.abbreviation = "{state}"'''
 
   return pd.read_sql_query(sql, db)
 
-def get_tracts(db, state):
+def get_tracts(db, state, demo_colors=None):
 
   features = []
-  vote_colors = []
-  pop_colors = []
-
+  colors = []
+  
   for index, tract in get_tract_sql(db, state).iterrows():
-      pop_color = get_population_color(tract)
+
+      if demo_colors:
+        color = get_population_color(tract, demo_colors)
+        colors.append(color)
 
       props = { 'name': tract['tract_name'], 'state': tract['abbreviation'], 'population': tract['population']}
       feature = geojson.Feature(properties=props, geometry=geojson.loads(tract['coordinates']))
       features.append(feature)
-      pop_colors.append(pop_color)
 
-  return geojson.FeatureCollection(features), pop_colors
+  return geojson.FeatureCollection(features), colors
 

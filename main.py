@@ -8,10 +8,11 @@ import gzip
 import json
 import glob
 
-Path('data/db/data.db').touch()
+path = 'data/db/geodemo.db'
+Path(path).touch()
 print('created db file')
 
-db = sqlite3.connect('data/db/data.db')
+db = sqlite3.connect(path)
 cur = db.cursor()
 
 tables = []
